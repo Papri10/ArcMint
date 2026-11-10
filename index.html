@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArcMint | Next-Gen Web3 Protocol & DeFi Portal</title>
+    <!-- Font Awesome Icons & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #070a10;
+            --bg-card: rgba(16, 23, 38, 0.7);
+            --bg-card-hover: rgba(24, 34, 56, 0.85);
+            --accent-primary: #6366f1;
+            --accent-secondary: #06b6d4;
+            --accent-glow: rgba(99, 102, 241, 0.35);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-bright: rgba(99, 102, 241, 0.4);
+            --success: #10b981;
+            --discord-color: #5865F2;
+            --x-color: #1DA1F2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Glow Background Effects */
+        .ambient-glow-1 {
+            position: fixed;
+            top: -15%;
+            left: -10%;
+            width: 55vw;
+            height: 55vw;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .ambient-glow-2 {
+            position: fixed;
+            bottom: -15%;
+            right: -10%;
+            width: 55vw;
+            height: 55vw;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .glass-panel {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 18px;
+        }
+
+        /* Navigation Bar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.25rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(7, 10, 16, 0.88);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glass);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #fff;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-main);
+        }
+
+        .btn-wallet {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: #fff;
+            border: none;
+            padding: 0.65rem 1.4rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-wallet:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            z-index: 1;
+            padding: 9rem 2rem 4rem 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            color: var(--accent-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-secondary);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-secondary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1.5px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #94A3B8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin: 0 auto 2.5rem auto;
+            line-height: 1.6;
+        }
+
+        /* Tab Navigation for DeFi Modules */
+        .defi-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto 5rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .tab-menu {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: rgba(16, 23, 38, 0.6);
+            padding: 0.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+            width: max-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.7rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: #fff;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Swap Card UI */
+        .swap-box {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .swap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .swap-header h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .token-input-box {
+            background: rgba(8, 11, 17, 0.7);
+            border: 1px solid var(--border-glass);
+            border-radius: 14px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .token-input-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .token-input-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .token-input-body input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            outline: none;
+            width: 50%;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .token-selector {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-glass);
+            color: #fff;
+            padding: 0.5rem 0.8rem;
+            border-radius: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .swap-arrow-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(26, 35, 56, 0.9);
+            border: 1px solid var(--border-bright);
+            color: var(--accent-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: -0.75rem auto;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .swap-arrow-btn:hover {
+            transform: rotate(180deg);
+        }
+
+        .btn-action {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: #fff;
+            border: none;
+            padding: 1rem;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-action:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+        }
+
+        /* Liquidity & Borrow Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-item-card {
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item-card:hover {
+            border-color: var(--border-bright);
+            transform: translateY(-4px);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .pair-icon {
+            display: flex;
+            align-items: center;
+        }
+
+        .token-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #fff;
+            border: 2px solid var(--bg-dark);
+        }
+
+        .token-circle.arc { background: #6366f1; }
+        .token-circle.usdt { background: #10b981; }
+        .token-circle.eth { background: #627eea; }
+
+        .apr-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            padding: 0.3rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .item-stats {
+            margin: 1.25rem 0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .item-stats span strong {
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Live Metrics Section */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto 5rem auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .metric-card {
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--border-bright);
+            transform: translateY(-4px);
+        }
+
+        .metric-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Creator Profile Section */
+        .creator-section {
+            position: relative;
+            z-index: 1;
+            padding: 2rem 2rem 6rem 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .creator-card {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(16, 23, 38, 0.95) 100%);
+            border: 1px solid var(--border-bright);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .creator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+        }
+
+        .creator-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-secondary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .creator-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-glass);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .social-btn.x-btn:hover {
+            background: rgba(29, 161, 242, 0.15);
+            border-color: var(--x-color);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .social-btn.discord-btn:hover {
+            background: rgba(88, 101, 242, 0.15);
+            border-color: var(--discord-color);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .copy-tag {
+            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 6px;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--border-glass);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .credit-highlight {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Modal Popup System */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(4, 7, 12, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #0d1322;
+            border: 1px solid var(--border-bright);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 420px;
+            padding: 1.75rem;
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .wallet-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .wallet-option-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 0.9rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .wallet-option-btn:hover {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: var(--accent-primary);
+        }
+
+        .wallet-option-btn div {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(16, 23, 38, 0.95);
+            border: 1px solid var(--border-bright);
+            color: #fff;
+            padding: 0.85rem 1.4rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1001;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .tab-menu { flex-wrap: wrap; width: 100%; }
+            .footer-content { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- Navigation Bar -->
+    <header id="header">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                ArcMint
+            </a>
+            <ul class="nav-links">
+                <li><a href="#swapTab" onclick="switchTab('swap')">Swap</a></li>
+                <li><a href="#lpTab" onclick="switchTab('liquidity')">Liquidity LP</a></li>
+                <li><a href="#borrowTab" onclick="switchTab('borrow')">Borrow & Lend</a></li>
+                <li><a href="#developer">Developer</a></li>
+            </ul>
+            <button class="btn-wallet" id="connectBtn" onclick="handleWalletConnection()">
+                <i class="fa-solid fa-wallet"></i>
+                <span id="walletText">Connect Wallet</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="badge">
+            <span class="badge-dot"></span> ArcMint Mainnet v3.2 Live
+        </div>
+        <h1>Unified Web3 Engine for <br><span>Swap, Liquidity & Lending</span></h1>
+        <p>Ultra-fast decentralized exchange, automated liquidity pools, and over-collateralized borrowing built for high-frequency Web3 execution.</p>
+    </section>
+
+    <!-- Interactive DeFi Container (Swap, LP, Borrow) -->
+    <section class="defi-container">
+        <!-- Navigation Tabs -->
+        <div class="tab-menu">
+            <button class="tab-btn active" id="tab-swap" onclick="switchTab('swap')">
+                <i class="fa-solid fa-repeat"></i> Instant Swap
+            </button>
+            <button class="tab-btn" id="tab-liquidity" onclick="switchTab('liquidity')">
+                <i class="fa-solid fa-water"></i> Liquidity Pools (LP)
+            </button>
+            <button class="tab-btn" id="tab-borrow" onclick="switchTab('borrow')">
+                <i class="fa-solid fa-hand-holding-dollar"></i> Borrow & Lend
+            </button>
+        </div>
+
+        <!-- Tab 1: Swap Module -->
+        <div class="tab-content active" id="content-swap">
+            <div class="glass-panel swap-box">
+                <div class="swap-header">
+                    <h3>Swap Tokens</h3>
+                    <i class="fa-solid fa-sliders" style="color: var(--text-muted); cursor: pointer;" onclick="showToast('Slippage tolerance set to 0.5%')"></i>
+                </div>
+                
+                <!-- Pay Token -->
+                <div class="token-input-box">
+                    <div class="token-input-header">
+                        <span>You Pay</span>
+                        <span>Balance: 12.45 ARC</span>
+                    </div>
+                    <div class="token-input-body">
+                        <input type="number" id="swapFromAmount" value="1.0" oninput="calculateSwap()">
+                        <div class="token-selector">
+                            <span style="font-weight: 800; color:#6366f1;">●</span> ARC
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Swap Direction Arrow -->
+                <div class="swap-arrow-btn" onclick="invertSwap()">
+                    <i class="fa-solid fa-arrow-down-up"></i>
+                </div>
+
+                <!-- Receive Token -->
+                <div class="token-input-box">
+                    <div class="token-input-header">
+                        <span>You Receive</span>
+                        <span>Balance: 4,820 USDT</span>
+                    </div>
+                    <div class="token-input-body">
+                        <input type="number" id="swapToAmount" value="3.25" readonly>
+                        <div class="token-selector">
+                            <span style="font-weight: 800; color:#10b981;">●</span> USDT
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin: 0.75rem 0;">
+                    <span>Exchange Rate</span>
+                    <span>1 ARC ≈ 3.25 USDT</span>
+                </div>
+
+                <button class="btn-action" onclick="executeSwap()">Execute Swap</button>
+            </div>
+        </div>
+
+        <!-- Tab 2: Liquidity Pools Module -->
+        <div class="tab-content" id="content-liquidity">
+            <div class="cards-grid">
+                <!-- LP Card 1 -->
+                <div class="glass-panel feature-item-card">
+                    <div class="item-header">
+                        <div class="pair-icon">
+                            <div class="token-circle arc">ARC</div>
+                            <div class="token-circle usdt" style="margin-left: -10px;">USDT</div>
+                            <span style="font-weight: 700; margin-left: 10px;">ARC / USDT</span>
+                        </div>
+                        <div class="apr-badge">24.8% APR</div>
+                    </div>
+                    <div class="item-stats">
+                        <span>Total Liquidity:</span>
+                        <span><strong>$14.2M</strong></span>
+                    </div>
+                    <div class="item-stats">
+                        <span>My Deposit:</span>
+                        <span><strong>$0.00</strong></span>
+                    </div>
+                    <button class="btn-action" onclick="addLiquidity('ARC/USDT')">Add Liquidity</button>
+                </div>
+
+                <!-- LP Card 2 -->
+                <div class="glass-panel feature-item-card">
+                    <div class="item-header">
+                        <div class="pair-icon">
+                            <div class="token-circle eth">ETH</div>
+                            <div class="token-circle arc" style="margin-left: -10px;">ARC</div>
+                            <span style="font-weight: 700; margin-left: 10px;">ETH / ARC</span>
+                        </div>
+                        <div class="apr-badge">38.2% APR</div>
+                    </div>
+                    <div class="item-stats">
+                        <span>Total Liquidity:</span>
+                        <span><strong>$28.6M</strong></span>
+                    </div>
+                    <div class="item-stats">
+                        <span>My Deposit:</span>
+                        <span><strong>$0.00</strong></span>
+                    </div>
+                    <button class="btn-action" onclick="addLiquidity('ETH/ARC')">Add Liquidity</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Borrow & Lend Module -->
+        <div class="tab-content" id="content-borrow">
+            <div class="cards-grid">
+                <!-- Borrow Card 1 -->
+                <div class="glass-panel feature-item-card">
+                    <div class="item-header">
+                        <div class="pair-icon">
+                            <div class="token-circle arc">ARC</div>
+                            <span style="font-weight: 700; margin-left: 10px;">Supply ARC</span>
+                        </div>
+                        <div class="apr-badge">6.5% Supply APY</div>
+                    </div>
+                    <div class="item-stats">
+                        <span>Collateral Factor:</span>
+                        <span><strong>75%</strong></span>
+                    </div>
+                    <div class="item-stats">
+                        <span>Total Supplied:</span>
+                        <span><strong>$8.9M</strong></span>
+                    </div>
+                    <button class="btn-action" onclick="borrowAction('Supply ARC')">Deposit Collateral</button>
+                </div>
+
+                <!-- Borrow Card 2 -->
+                <div class="glass-panel feature-item-card">
+                    <div class="item-header">
+                        <div class="pair-icon">
+                            <div class="token-circle usdt">USDT</div>
+                            <span style="font-weight: 700; margin-left: 10px;">Borrow USDT</span>
+                        </div>
+                        <div class="apr-badge" style="color: var(--accent-secondary); background: rgba(6, 182, 212, 0.15);">3.2% Borrow APY</div>
+                    </div>
+                    <div class="item-stats">
+                        <span>Available Liquidity:</span>
+                        <span><strong>$5.4M</strong></span>
+                    </div>
+                    <div class="item-stats">
+                        <span>Borrow Limit:</span>
+                        <span><strong>$0.00</strong></span>
+                    </div>
+                    <button class="btn-action" onclick="borrowAction('Borrow USDT')">Borrow USDT</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Protocol Live Metrics -->
+    <section class="metrics-grid">
+        <div class="glass-panel metric-card">
+            <div class="metric-title"><i class="fa-solid fa-chart-line"></i> 24h Volume</div>
+            <div class="metric-value">$68.4M</div>
+        </div>
+        <div class="glass-panel metric-card">
+            <div class="metric-title"><i class="fa-solid fa-vault"></i> Total Value Locked (TVL)</div>
+            <div class="metric-value">$184.2M</div>
+        </div>
+        <div class="glass-panel metric-card">
+            <div class="metric-title"><i class="fa-solid fa-bolt"></i> Execution Time</div>
+            <div class="metric-value">0.45s</div>
+        </div>
+        <div class="glass-panel metric-card">
+            <div class="metric-title"><i class="fa-solid fa-shield-halved"></i> Collateral Ratio</div>
+            <div class="metric-value">165%</div>
+        </div>
+    </section>
+
+    <!-- Developer & Creator Section -->
+    <section class="creator-section" id="developer">
+        <div class="glass-panel creator-card">
+            <div class="creator-title">Protocol Developer</div>
+            <div class="creator-name">Made with passion by <span style="color: var(--accent-secondary);">papri</span></div>
+            <p style="color: var(--text-muted); max-width: 520px; margin: 0 auto;">
+                Designed and engineered for optimal decentralized financial liquidity and cross-chain execution.
+            </p>
+            <div class="social-buttons">
+                <!-- X (Twitter) -->
+                <a href="https://x.com/Papri0248" target="_blank" class="social-btn x-btn">
+                    <i class="fa-brands fa-x-twitter"></i>
+                    <span>X: @Papri0248</span>
+                </a>
+                <!-- Discord -->
+                <button class="social-btn discord-btn" onclick="copyDiscord()">
+                    <i class="fa-brands fa-discord"></i>
+                    <span>Discord: papri0248_07315</span>
+                    <span class="copy-tag">Click to Copy</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                © 2026 <span class="credit-highlight">ArcMint Protocol</span>. All rights reserved.
+            </div>
+            <div>
+                Crafted by <span class="credit-highlight">papri</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Web3 Wallet Provider Select Modal -->
+    <div class="modal-overlay" id="walletModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Select Web3 Provider</h3>
+                <button class="modal-close" onclick="closeWalletModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="wallet-options">
+                <button class="wallet-option-btn" onclick="connectBrowserExtension('MetaMask')">
+                    <div>
+                        <i class="fa-solid fa-dragon" style="color: #e2761b;"></i>
+                        <span>Browser Extension (MetaMask / Web3)</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: var(--text-muted);"></i>
+                </button>
+                <button class="wallet-option-btn" onclick="connectBrowserExtension('Phantom')">
+                    <div>
+                        <i class="fa-solid fa-ghost" style="color: #ab9ff2;"></i>
+                        <span>Phantom Wallet</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: var(--text-muted);"></i>
+                </button>
+                <button class="wallet-option-btn" onclick="connectSimulatedFallback('WalletConnect')">
+                    <div>
+                        <i class="fa-solid fa-wallet" style="color: #0052ff;"></i>
+                        <span>WalletConnect Sync</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: var(--text-muted);"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check" style="color: var(--accent-secondary);"></i>
+        <span id="toastMsg">Notification Message</span>
+    </div>
+
+    <!-- Script Implementation -->
+    <script>
+        // Header Scroll Sticky Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 20) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Tab Switching Logic (Swap, LP, Borrow)
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            document.getElementById('tab-' + tabName).classList.add('active');
+            document.getElementById('content-' + tabName).classList.add('active');
+        }
+
+        // REAL WEB3 WALLET INTEGRATION SYSTEM
+        let currentAccount = null;
+
+        async function handleWalletConnection() {
+            if (currentAccount) {
+                // Disconnect action
+                currentAccount = null;
+                document.getElementById('walletText').innerText = 'Connect Wallet';
+                showToast('Wallet Disconnected');
+                return;
+            }
+
+            // Direct Web3 Extension Connection (MetaMask/Injected Provider)
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    if (accounts.length > 0) {
+                        currentAccount = accounts[0];
+                        const truncated = currentAccount.substring(0, 6) + '...' + currentAccount.substring(currentAccount.length - 4);
+                        document.getElementById('walletText').innerText = truncated;
+                        showToast('Connected: ' + truncated);
+                        return;
+                    }
+                } catch (error) {
+                    console.error('Wallet Request Error:', error);
+                    showToast('Connection rejected by user.');
+                    return;
+                }
+            }
+            
+            // If window.ethereum not available or user prefers provider list, show Modal
+            openWalletModal();
+        }
+
+        function openWalletModal() {
+            document.getElementById('walletModal').classList.add('active');
+        }
+
+        function closeWalletModal() {
+            document.getElementById('walletModal').classList.remove('active');
+        }
+
+        async function connectBrowserExtension(providerName) {
+            closeWalletModal();
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    if (accounts.length > 0) {
+                        currentAccount = accounts[0];
+                        const truncated = currentAccount.substring(0, 6) + '...' + currentAccount.substring(currentAccount.length - 4);
+                        document.getElementById('walletText').innerText = truncated;
+                        showToast(providerName + ' Connected!');
+                    }
+                } catch (err) {
+                    showToast('User cancelled connection request');
+                }
+            } else {
+                // Fallback simulation if no browser extension is installed
+                connectSimulatedFallback(providerName);
+            }
+        }
+
+        function connectSimulatedFallback(name) {
+            closeWalletModal();
+            currentAccount = "0x71C8a92f08a4f9A552829";
+            document.getElementById('walletText').innerText = '0x71C...4f9A';
+            showToast(name + ' Connected (Simulated)');
+        }
+
+        // Auto-detect wallet account changes
+        if (window.ethereum) {
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    currentAccount = null;
+                    document.getElementById('walletText').innerText = 'Connect Wallet';
+                    showToast('Wallet Disconnected');
+                } else {
+                    currentAccount = accounts[0];
+                    const truncated = currentAccount.substring(0, 6) + '...' + currentAccount.substring(currentAccount.length - 4);
+                    document.getElementById('walletText').innerText = truncated;
+                    showToast('Account changed: ' + truncated);
+                }
+            });
+        }
+
+        // Swap Calculation Simulator
+        function calculateSwap() {
+            const fromAmt = parseFloat(document.getElementById('swapFromAmount').value) || 0;
+            const toInput = document.getElementById('swapToAmount');
+            toInput.value = (fromAmt * 3.25).toFixed(2);
+        }
+
+        function invertSwap() {
+            const fromInput = document.getElementById('swapFromAmount');
+            const toInput = document.getElementById('swapToAmount');
+            const temp = fromInput.value;
+            fromInput.value = (toInput.value / 3.25).toFixed(2);
+            toInput.value = temp;
+            showToast('Swap Route Inverted');
+        }
+
+        function executeSwap() {
+            if (!currentAccount) {
+                handleWalletConnection();
+                return;
+            }
+            const amt = document.getElementById('swapFromAmount').value;
+            showToast(`Swapped ${amt} ARC to USDT successfully!`);
+        }
+
+        function addLiquidity(pool) {
+            if (!currentAccount) {
+                handleWalletConnection();
+                return;
+            }
+            showToast(`Deposited into ${pool} Liquidity Pool!`);
+        }
+
+        function borrowAction(actionType) {
+            if (!currentAccount) {
+                handleWalletConnection();
+                return;
+            }
+            showToast(`${actionType} action submitted to network!`);
+        }
+
+        // Copy Discord Username
+        function copyDiscord() {
+            const tag = "papri0248_07315";
+            navigator.clipboard.writeText(tag);
+            showToast("Discord Tag Copied: " + tag);
+        }
+
+        // Notification Toast Generator
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
